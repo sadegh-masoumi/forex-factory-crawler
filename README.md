@@ -18,6 +18,7 @@ cd forex-factory-crawler
 ```bash 
 pip install -r requirements.txt
 ```
+3- create .env file
 
 ## Usage
 To start using the Forex Factory Python App Crawler, you can run the main script:
