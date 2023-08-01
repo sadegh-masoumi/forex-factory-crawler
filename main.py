@@ -1,5 +1,8 @@
 import requests
+import os
+
 from bs4 import BeautifulSoup
+from telegram import Telegram
 
 
 def fetch_forex_factory_economic_calendar():
@@ -52,9 +55,14 @@ def fetch_forex_factory_economic_calendar():
 
 
 if __name__ == "__main__":
+    token = os.getenv('BOT_TOKEN')
+    chat_id = os.getenv('ZANGOOLE_CHAT_ID')
+    telegram_client = Telegram(token=token, chat_id=chat_id)
     economic_calendar = fetch_forex_factory_economic_calendar()
     if economic_calendar:
         for idx, event in enumerate(economic_calendar, start=1):
+            if "usd" in event['currency'].lower():
+                telegram_client.send_message(event['time'])
             print(f"Event {idx}:")
             print(f"Time: {event['time']}")
             print(f"Currency: {event['currency']}")
@@ -66,4 +74,3 @@ if __name__ == "__main__":
             print("----------------------")
     else:
         print("No economic calendar data available.")
-
