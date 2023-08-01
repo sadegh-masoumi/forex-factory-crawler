@@ -55,6 +55,13 @@ def fetch_forex_factory_economic_calendar():
 
 
 if __name__ == "__main__":
+    from pathlib import Path
+    # create a Path object with the path to the file
+    path = Path('./.env')
+    
+    if not path.is_file():
+        raise Exception('.env File Does not Exist. ❌')
+    
     token = os.getenv('BOT_TOKEN')
     chat_id = os.getenv('ZANGOOLE_CHAT_ID')
     telegram_client = Telegram(token=token, chat_id=chat_id)
